@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clausemap — Contract-to-Metric Traceability</title>
+  <meta name="description" content="Clausemap discovers contractual and regulatory obligations across your document repositories, maps them to the metrics and data sources that measure them, and flags every gap — with audit-ready evidence." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:title" content="Clausemap — Every obligation, traced" />
+  <meta property="og:description" content="AI-driven traceability from contract clause to enterprise metric." />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+<div class="shell">
+<div class="page">
+
+  <header class="nav wrap" id="nav">
+    <a class="brand" href="/" aria-label="Clausemap home">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M11 5H8.5A4.5 4.5 0 0 0 4 9.5v13A4.5 4.5 0 0 0 8.5 27H11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M21 5h2.5A4.5 4.5 0 0 1 28 9.5v13a4.5 4.5 0 0 1-4.5 4.5H21" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="11.5" cy="16" r="2.6" fill="#fff"/>
+        <path d="M14.5 16h3.5" stroke="#fff" stroke-width="2" stroke-dasharray="1.6 1.6"/>
+        <rect x="18.6" y="13.4" width="5.2" height="5.2" fill="#a67cff"/>
+      </svg>
+      Clausemap
+    </a>
+    <button class="nav__menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <nav class="nav__links" id="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#how">How it works</a>
+      <a href="#matrix">Traceability</a>
+      <a href="#platform">Platform</a>
+      <a class="btn btn--sm btn--ghost-fill" href="/app">Console</a>
+      <a class="btn btn--sm" href="#contact">Book a demo</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero wrap">
+      <h1>Every Obligation, Traced</h1>
+      <p class="lede">Clausemap reads your MSAs, SOWs, vendor contracts and compliance policies, finds every KPI, SLA and reporting commitment, and traces each one to the metric, dashboard and data source that proves it — or flags the gap.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="/app">Run a free scan</a>
+        <a class="btn" href="#contact">Book a demo</a>
+      </div>
+
+      <div class="diagram" aria-label="Diagram: documents and stakeholders feed the obligation pipeline, which maps obligations to the metric layer and produces a coverage board.">
+        <div class="diagram__scale" id="diagram-scale">
+          <div class="stage" id="stage">
+            <svg class="wires" viewBox="0 0 960 540" aria-hidden="true">
+              <path id="w1" class="wire" d="M190 105 C 262 105, 258 190, 330 190"/>
+              <path id="w2" class="wire" d="M190 305 C 262 305, 258 190, 330 190"/>
+              <path id="w3" class="wire" d="M610 190 C 656 190, 654 128, 700 128"/>
+              <path id="w4" class="wire" d="M610 190 C 656 190, 654 340, 700 340"/>
+              <path class="wire wire--v" d="M815 238 V 262"/>
+              <path class="wire wire--v" d="M470 354 V 368"/>
+              <rect class="pin" x="186.5" y="101.5" width="7" height="7"/>
+              <rect class="pin" x="186.5" y="301.5" width="7" height="7"/>
+              <rect class="pin" x="326.5" y="186.5" width="7" height="7"/>
+              <rect class="pin" x="606.5" y="186.5" width="7" height="7"/>
+              <rect class="pin" x="696.5" y="124.5" width="7" height="7"/>
+              <rect class="pin" x="696.5" y="336.5" width="7" height="7"/>
+              <circle class="pulse" r="2.6"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#w1"/></animateMotion></circle>
+              <circle class="pulse" r="2.6"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite"><mpath href="#w2"/></animateMotion></circle>
+              <circle class="pulse" r="2.6"><animateMotion dur="2s" begin="0.6s" repeatCount="indefinite"><mpath href="#w3"/></animateMotion></circle>
+              <circle class="pulse" r="2.6"><animateMotion dur="2s" begin="1.6s" repeatCount="indefinite"><mpath href="#w4"/></animateMotion></circle>
+            </svg>
+
+            <!-- sources -->
+            <div class="node node--soft" style="left:40px;top:30px;width:150px;height:150px">
+              <div class="repo-grid" id="repos">
+                <span class="repo" title="SharePoint">SP</span>
+                <span class="repo" title="Master Service Agreements">MSA</span>
+                <span class="repo" title="Statements of Work">SOW</span>
+                <span class="repo" title="Regulatory and compliance">REG</span>
+              </div>
+              <div class="node__label" style="text-align:center">Repositories</div>
+            </div>
+
+            <!-- stakeholders -->
+            <div class="node node--soft" style="left:40px;top:232px;width:150px;height:148px">
+              <ul class="roles" id="roles">
+                <li><b>BA</b>Analyst</li>
+                <li><b>CO</b>Compliance</li>
+                <li><b>AU</b>Audit</li>
+                <li><b>VM</b>Vendor mgmt</li>
+              </ul>
+            </div>
+
+            <!-- pipeline -->
+            <div class="tabs-dots" style="left:330px;top:0"><i></i><i></i></div>
+            <div class="node pipeline" style="left:330px;top:24px;width:280px;height:330px">
+              <div class="pipeline__spine"></div>
+              <div class="node__head">
+                <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M11 5H8.5A4.5 4.5 0 0 0 4 9.5v13A4.5 4.5 0 0 0 8.5 27H11M21 5h2.5A4.5 4.5 0 0 1 28 9.5v13a4.5 4.5 0 0 1-4.5 4.5H21" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="11.5" cy="16" r="2.8" fill="#fff"/><rect x="18.4" y="13.2" width="5.6" height="5.6" fill="#a67cff"/></svg>
+                Clausemap
+              </div>
+              <div id="steps">
+                <div class="step">Discover documents<small>scan</small></div>
+                <div class="step">Extract obligations<small>llm</small></div>
+                <div class="step">Map to metrics<small>match</small></div>
+                <div class="step">Validate &amp; evidence<small>audit</small></div>
+              </div>
+            </div>
+
+            <!-- coverage board -->
+            <div class="node" style="left:330px;top:368px;width:280px;height:150px">
+              <div class="board" id="board">
+                <div class="col--ok"><h6>TRACKED <i>·</i> <span data-n="tracked">0</span></h6></div>
+                <div class="col--warn"><h6>PARTIAL <i>·</i> <span data-n="partial">0</span></h6></div>
+                <div class="col--bad"><h6>GAP <i>·</i> <span data-n="gap">0</span></h6></div>
+              </div>
+            </div>
+
+            <!-- metric layer -->
+            <div class="node" style="left:700px;top:24px;width:230px;height:214px">
+              <div class="node__head" style="padding-bottom:4px">
+                <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M11 5H8.5A4.5 4.5 0 0 0 4 9.5v13A4.5 4.5 0 0 0 8.5 27H11M21 5h2.5A4.5 4.5 0 0 1 28 9.5v13a4.5 4.5 0 0 1-4.5 4.5H21" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="11.5" cy="16" r="2.8" fill="#fff"/><rect x="18.4" y="13.2" width="5.6" height="5.6" fill="#a67cff"/></svg>
+                Clausemap
+              </div>
+              <div class="node__label">Metric layer</div>
+              <ul class="ctx" id="ctx">
+                <li><span>Dashboards</span><em>412</em></li>
+                <li><span>Reports</span><em>1,208</em></li>
+                <li><span>Data sources</span><em>86</em></li>
+                <li><span>Lineage</span><em>live</em></li>
+              </ul>
+            </div>
+
+            <!-- terminal -->
+            <div class="node" style="left:700px;top:262px;width:230px;height:160px">
+              <div class="term__bar"><i></i><i></i><i></i><b></b></div>
+              <div class="term__body" id="term"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="strip wrap">
+      <p>Designed to read from</p>
+      <ul>
+        <li>SharePoint</li><li>Power BI</li><li>Tableau</li><li>Snowflake</li><li>Databricks</li><li>ServiceNow</li><li>SAP</li>
+      </ul>
+    </div>
+
+    <!-- PROBLEM -->
+    <section class="section wrap" id="problem">
+      <div class="section__head reveal">
+        <span class="eyebrow">The problem</span>
+        <h2>You signed it. Is anyone measuring it?</h2>
+        <p class="lede">KPIs, SLAs, reporting requirements and regulatory commitments live in documents scattered across repositories. Tracing them to the metrics that prove compliance is manual, inconsistent and dependent on whoever happens to remember.</p>
+      </div>
+      <div class="grid grid--3 reveal">
+        <article class="cell"><span class="cell__num">01</span><h3>Obligations are scattered</h3><p>KPIs are buried in MSAs, SOWs, vendor contracts and policies across many SharePoint sites — no single catalog exists.</p></article>
+        <article class="cell"><span class="cell__num">02</span><h3>Tracking is unknown</h3><p>Nobody can say with confidence which commitments are actively measured and reported, and which are not.</p></article>
+        <article class="cell"><span class="cell__num">03</span><h3>No clause-to-metric link</h3><p>Analysts interpret contract language by hand and hunt for matching metrics across reporting platforms.</p></article>
+        <article class="cell"><span class="cell__num">04</span><h3>Lineage is opaque</h3><p>Even when a KPI is reported, the systems and data sources behind the number are undocumented.</p></article>
+        <article class="cell"><span class="cell__num">05</span><h3>Evidence is ad hoc</h3><p>Audit requests trigger a scramble for screenshots, exports and emails that are hard to verify and reproduce.</p></article>
+        <article class="cell"><span class="cell__num">06</span><h3>Gaps stay hidden</h3><p>Obligations with no corresponding metric surface only when a vendor misses a target — or an auditor asks.</p></article>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section class="section wrap" id="how">
+      <div class="section__head reveal">
+        <span class="eyebrow">How it works</span>
+        <h2>From clause to dashboard, continuously.</h2>
+        <p class="lede">An AI pipeline that does the reading, matching and evidence-gathering — with analysts confirming every mapping before it counts.</p>
+      </div>
+      <div class="grid grid--4 steps reveal">
+        <article class="cell">
+          <div class="cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h6l2 2h8v12H4z"/><circle cx="13" cy="13" r="3"/><path d="M15.2 15.2 18 18"/></svg></div>
+          <span class="cell__num">01 — Discover</span>
+          <h3>Find every governing document</h3>
+          <p>Crawls SharePoint libraries and contract repositories, detecting new and changed MSAs, SOWs and policies.</p>
+        </article>
+        <article class="cell">
+          <div class="cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg></div>
+          <span class="cell__num">02 — Extract</span>
+          <h3>Catalog measurable obligations</h3>
+          <p>An LLM reads each clause and records the KPI, target, frequency and type, quoting the exact source text.</p>
+        </article>
+        <article class="cell">
+          <div class="cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="7" r="2.5"/><rect x="15.5" y="4.5" width="5" height="5"/><rect x="15.5" y="14.5" width="5" height="5"/><path d="M8.5 7h7M8 8.5c3 2 4 7.5 7.5 8.5" stroke-dasharray="2 2"/></svg></div>
+          <span class="cell__num">03 — Map</span>
+          <h3>Match to metrics &amp; lineage</h3>
+          <p>Each obligation is matched to dashboards, report fields and source tables, with a confidence score and rationale.</p>
+        </article>
+        <article class="cell">
+          <div class="cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div>
+          <span class="cell__num">04 — Validate</span>
+          <h3>Prove it, or flag it</h3>
+          <p>Analysts confirm mappings, evidence is captured and hashed, and every unmeasured obligation is raised as a gap.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- MATRIX -->
+    <section class="section wrap" id="matrix">
+      <div class="section__head reveal">
+        <span class="eyebrow">Traceability matrix</span>
+        <h2>One view of what's promised and what's proven.</h2>
+        <p class="lede">Every obligation, its source clause, the metric that measures it, the data behind that metric, and the evidence an auditor will ask for. Select a row to see the full trace.</p>
+      </div>
+
+      <div class="reveal">
+        <dl class="stats" id="stats"></dl>
+        <div class="filters" role="group" aria-label="Filter by coverage">
+          <button class="filter" data-f="all" aria-pressed="true">All</button>
+          <button class="filter" data-f="tracked" aria-pressed="false"><span class="dot dot--tracked"></span>Tracked</button>
+          <button class="filter" data-f="partial" aria-pressed="false"><span class="dot dot--partial"></span>Partial</button>
+          <button class="filter" data-f="gap" aria-pressed="false"><span class="dot dot--gap"></span>Gap</button>
+        </div>
+        <div class="matrix" id="matrix-table">
+          <div class="matrix__head"><span>ID</span><span>Obligation</span><span>Source</span><span>Metric</span><span>Coverage</span><span></span></div>
+          <div id="matrix-rows"></div>
+        </div>
+        <p class="source-note">Sample workspace · illustrative data</p>
+      </div>
+    </section>
+
+    <!-- SUCCESS -->
+    <section class="section wrap" id="outcomes">
+      <div class="section__head reveal">
+        <span class="eyebrow">Outcomes</span>
+        <h2>What “traced” means.</h2>
+      </div>
+      <ul class="criteria reveal">
+        <li>Contractual and regulatory KPIs are automatically identified and cataloged.</li>
+        <li>Each KPI links to its source clause and originating document.</li>
+        <li>Enterprise metrics, dashboards and data sources are mapped to obligations.</li>
+        <li>Evidence supporting every mapping is stored and auditable.</li>
+        <li>Untracked obligations and measurement gaps are detected and reported automatically.</li>
+        <li>Analysts can answer “is this commitment measured?” in seconds, not weeks.</li>
+      </ul>
+    </section>
+
+    <!-- PLATFORM -->
+    <section class="section wrap" id="platform">
+      <div class="section__head reveal">
+        <span class="eyebrow">Platform</span>
+        <h2>Built on the edge, grounded in your data.</h2>
+        <p class="lede">A lightweight stack that keeps model calls server-side and every decision in an auditable database.</p>
+      </div>
+      <div class="arch reveal">
+        <div class="arch__box">
+          <span class="mono">Cloudflare</span>
+          <h3>Edge app &amp; API</h3>
+          <p>Static site plus Pages Functions for extraction, mapping and the traceability API.</p>
+          <ul><li>/api/extract</li><li>/api/obligations</li><li>/api/health</li></ul>
+        </div>
+        <div class="arch__link"><i></i></div>
+        <div class="arch__box">
+          <span class="mono">NVIDIA NIM</span>
+          <h3>LLM extraction &amp; matching</h3>
+          <p>Reads clauses into structured obligations with verbatim quotes and confidence scores.</p>
+          <ul><li>OpenAI-compatible API</li><li>Model is configurable</li><li>Keys stay server-side</li></ul>
+        </div>
+        <div class="arch__link"><i></i></div>
+        <div class="arch__box">
+          <span class="mono">Supabase</span>
+          <h3>Catalog &amp; audit trail</h3>
+          <p>Postgres tables for documents, clauses, obligations, metrics, mappings and evidence.</p>
+          <ul><li>Traceability view</li><li>Row-level security</li><li>Append-only audit log</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta wrap" id="contact">
+      <h2>Know every commitment is measured.</h2>
+      <p class="lede">Paste a clause into the console and watch it become a traced obligation.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="/app">Open the console</a>
+        <a class="btn" href="mailto:hello@example.com?subject=Clausemap%20demo">Book a demo</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© 2026 Clausemap</span>
+    <nav><a href="#problem">Problem</a><a href="#how">How it works</a><a href="#matrix">Traceability</a><a href="/app">Console</a></nav>
+  </footer>
+
+</div>
+</div>
+<script type="module" src="/assets/main.js"></script>
+</body>
+</html>

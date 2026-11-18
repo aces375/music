@@ -1,0 +1,10 @@
+# Cloudflare Pages project. Static files come from ./public, API routes from ./functions.
+name = "clausemap"
+pages_build_output_dir = "./public"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Non-secret defaults. Secrets (API keys) go in .dev.vars locally and
+# `wrangler pages secret put` / the dashboard in production.
+NVIDIA_MODEL = "meta/llama-3.3-70b-instruct"
+NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"

@@ -1,0 +1,13 @@
+{
+  "name": "clausemap",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev",
+    "deploy": "wrangler pages deploy",
+    "db:push": "supabase db push"
+  },
+  "devDependencies": {
+    "wrangler": "^4.164.0"
+  }
+}

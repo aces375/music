@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clausemap Console</title>
+  <meta name="description" content="Extract obligations from contract text and review the contract-to-metric traceability matrix." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/console.css" />
+</head>
+<body>
+<div class="shell">
+<div class="page">
+
+  <header class="nav wrap" id="nav">
+    <a class="brand" href="/" aria-label="Clausemap home">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M11 5H8.5A4.5 4.5 0 0 0 4 9.5v13A4.5 4.5 0 0 0 8.5 27H11" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M21 5h2.5A4.5 4.5 0 0 1 28 9.5v13a4.5 4.5 0 0 1-4.5 4.5H21" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="11.5" cy="16" r="2.6" fill="#fff"/>
+        <path d="M14.5 16h3.5" stroke="#fff" stroke-width="2" stroke-dasharray="1.6 1.6"/>
+        <rect x="18.6" y="13.4" width="5.2" height="5.2" fill="#a67cff"/>
+      </svg>
+      Clausemap
+    </a>
+    <div class="status" id="status" aria-live="polite">
+      <span class="status__item" data-k="nvidia"><i></i>NVIDIA</span>
+      <span class="status__item" data-k="supabase"><i></i>Supabase</span>
+    </div>
+  </header>
+
+  <main class="wrap console">
+    <section class="console__intro">
+      <span class="eyebrow">Console</span>
+      <h2>Extract &amp; trace obligations</h2>
+    </section>
+
+    <section class="panel" aria-labelledby="extract-h">
+      <div class="panel__head">
+        <h3 id="extract-h">1 · Extract obligations</h3>
+        <span class="engine" id="engine" hidden></span>
+      </div>
+      <form id="extract-form" class="extract">
+        <div class="fields">
+          <label>Document title<input name="document_title" value="Northwind Hosting MSA" autocomplete="off" /></label>
+          <label>Type
+            <select name="document_type">
+              <option>MSA</option><option>SOW</option><option>Vendor contract</option><option>Compliance</option><option>Regulatory</option>
+            </select>
+          </label>
+        </div>
+        <label class="area">Clause text
+          <textarea name="text" rows="9" spellcheck="false">4.2 Availability. Supplier shall ensure the Hosted Services are Available at least 99.9% of each calendar month, excluding Scheduled Maintenance notified no less than five (5) Business Days in advance.
+
+4.3 Incident Response. For Severity 1 Incidents, Supplier shall acknowledge and commence remediation within fifteen (15) minutes of notification.
+
+9.3 Assurance. Vendor shall deliver a SOC 2 Type II report annually and a bridge letter within thirty (30) days after the end of each calendar quarter.
+
+12.4 Notices. All notices under this Agreement shall be in writing.</textarea>
+        </label>
+        <div class="extract__actions">
+          <button class="btn btn--primary" type="submit" id="run">Extract</button>
+          <span class="hint" id="hint">Text is sent to <code>/api/extract</code>. Without an NVIDIA key a rule-based extractor is used.</span>
+        </div>
+      </form>
+      <div id="results" class="results"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="matrix-h">
+      <div class="panel__head">
+        <h3 id="matrix-h">2 · Traceability matrix</h3>
+        <span class="engine" id="source"></span>
+      </div>
+      <dl class="stats" id="stats"></dl>
+      <div class="filters" role="group" aria-label="Filter by coverage">
+        <button class="filter" data-f="all" aria-pressed="true">All</button>
+        <button class="filter" data-f="tracked" aria-pressed="false"><span class="dot dot--tracked"></span>Tracked</button>
+        <button class="filter" data-f="partial" aria-pressed="false"><span class="dot dot--partial"></span>Partial</button>
+        <button class="filter" data-f="gap" aria-pressed="false"><span class="dot dot--gap"></span>Gap</button>
+      </div>
+      <div class="matrix">
+        <div class="matrix__head"><span>ID</span><span>Obligation</span><span>Source</span><span>Metric</span><span>Coverage</span><span></span></div>
+        <div id="matrix-rows"><div style="padding:28px 18px;color:var(--dim)">Loading…</div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© 2026 Clausemap</span>
+    <nav><a href="/">Home</a><a href="/api/health">API health</a></nav>
+  </footer>
+
+</div>
+</div>
+<script type="module" src="/assets/console.js"></script>
+</body>
+</html>
