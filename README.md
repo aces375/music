@@ -1,10 +1,10 @@
 # Clausemap — Contract-to-Metric Traceability
 
-A Cloudflare Pages site and API that discovers contractual and regulatory obligations (KPIs, SLAs, reporting requirements, regulatory commitments) in MSAs, SOWs, vendor contracts and compliance documents, maps them to the enterprise metrics, dashboards and data sources that measure them, and flags gaps with auditable evidence.
+A Cloudflare Worker (static site + API) that discovers contractual and regulatory obligations (KPIs, SLAs, reporting requirements, regulatory commitments) in MSAs, SOWs, vendor contracts and compliance documents, maps them to the enterprise metrics, dashboards and data sources that measure them, and flags gaps with auditable evidence.
 
 - **Landing page** (`/`): product story, animated pipeline diagram, interactive traceability matrix.
 - **Console** (`/app`): read the sample documents with traced clauses highlighted, extract obligations from a document or pasted text, and browse the traceability matrix.
-- **API** (Cloudflare Pages Functions):
+- **API** (`src/worker.js`, routes in `src/api/`):
   - `POST /api/extract`: `{ text, document_title?, document_type? }` → structured obligations. Uses the NVIDIA LLM API when `NVIDIA_API_KEY` is set; otherwise it uses a rule-based extractor.
   - `GET /api/obligations?coverage=tracked|partial|gap`: traceability rows from Supabase, or bundled sample data when Supabase is not configured.
   - `GET /api/health`: shows which integrations are configured.
@@ -31,11 +31,11 @@ public/            static site (HTML, CSS, ES modules); deployed as-is, no build
   app.html         console (served at /app)
   assets/          styles, scripts, sample data, rule-based extractor (shared with the API)
   samples/         the three fictional sample documents (markdown)
-functions/api/     Cloudflare Pages Functions
+src/worker.js      Worker entry: routes /api/* to src/api/; everything else is a static asset
 lib/               server helpers: NVIDIA client + prompt, Supabase REST client
 supabase/          SQL migration (schema, traceability view, RLS) and generated seed data
 scripts/           build-seed.mjs: verifies sample clauses and generates supabase/seed.sql
-wrangler.toml      Cloudflare Pages config
+wrangler.toml      Worker config (name, entry point, ./public as static assets, vars)
 ```
 
 ## Run locally
@@ -67,15 +67,15 @@ Everything works without keys. The console shows which engine and data source an
 Set the production secrets:
 
 ```bash
-npx wrangler pages secret put NVIDIA_API_KEY
+npx wrangler secret put NVIDIA_API_KEY
 ```
 
 ```bash
-npx wrangler pages secret put SUPABASE_URL
+npx wrangler secret put SUPABASE_URL
 ```
 
 ```bash
-npx wrangler pages secret put SUPABASE_SERVICE_ROLE_KEY
+npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
 ```
 
 ## Database (Supabase)
@@ -90,7 +90,9 @@ Data model: `documents → clauses → obligations ⇄ mappings ⇄ metrics → 
 npm run deploy
 ```
 
-Or connect the GitHub repo in the Cloudflare dashboard (Workers & Pages → Create → Pages → Connect to Git) with build command left blank and output directory `public`.
+Or connect the GitHub repo in the Cloudflare dashboard (Workers & Pages → Create → Import a repository): project name `clausemap` (it must match `name` in `wrangler.toml`), build command empty, deploy command `npx wrangler deploy`. Every push to `main` then redeploys.
+
+Secrets in production: Worker → Settings → Variables and Secrets.
 
 ## Next steps
 

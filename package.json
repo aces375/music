@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler pages dev",
-    "deploy": "wrangler pages deploy",
+    "dev": "wrangler dev --port 8788",
+    "deploy": "wrangler deploy",
     "db:push": "supabase db push",
     "seed": "node scripts/build-seed.mjs",
     "check:samples": "node scripts/build-seed.mjs --check"
