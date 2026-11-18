@@ -18,7 +18,7 @@ function rowHtml(r, i) {
     : `<li class="none"><span>No evidence — obligation is not measured</span><span>action required</span></li>`;
   const miss = (v) => (v ? `<dd>${esc(v)}</dd>` : `<dd class="missing">Not found</dd>`);
   return `
-  <div class="row" data-coverage="${esc(r.coverage)}">
+  <div class="row" data-coverage="${esc(r.coverage)}" data-id="${esc(r.obligation_id)}">
     <button class="row__main" aria-expanded="false" aria-controls="detail-${i}">
       <span class="row__id">${esc(r.obligation_id)}</span>
       <span><span class="row__title">${esc(r.obligation)}</span><span class="row__sub">${esc(TYPE[r.obligation_type] || r.obligation_type)} · ${esc(r.target)}</span></span>
@@ -30,6 +30,7 @@ function rowHtml(r, i) {
     <div class="row__detail" id="detail-${i}">
       <div>
         <blockquote class="clause">“${esc(r.clause_text)}”<cite>${esc(r.document_title)} · ${esc(r.clause_ref)} · ${esc(r.repository)}</cite></blockquote>
+        ${r.document_id ? `<a class="doclink" data-doc="${esc(r.document_id)}" data-obl="${esc(r.obligation_id)}" href="/app?doc=${encodeURIComponent(r.document_id)}#${esc(r.obligation_id)}">Open clause in document →</a>` : ""}
         ${r.gap_reason ? `<div class="gapnote">${esc(r.gap_reason)}</div>` : ""}
       </div>
       <div>
@@ -46,8 +47,11 @@ function rowHtml(r, i) {
   </div>`;
 }
 
-export function mountMatrix({ rows, statsEl, rowsEl, filterEls }) {
+// onOpenDocument(documentId, obligationId): optional; when set, "Open clause in document"
+// links call it instead of navigating. limit: rows shown before a "Show all" button.
+export function mountMatrix({ rows, statsEl, rowsEl, filterEls, onOpenDocument, limit = Infinity }) {
   let current = "all";
+  let expanded = false;
 
   const s = summarize(rows);
   if (statsEl) {
@@ -60,12 +64,25 @@ export function mountMatrix({ rows, statsEl, rowsEl, filterEls }) {
 
   function render() {
     const list = current === "all" ? rows : rows.filter((r) => r.coverage === current);
+    const shown = expanded ? list : list.slice(0, limit);
     rowsEl.innerHTML = list.length
-      ? list.map(rowHtml).join("")
+      ? shown.map(rowHtml).join("") +
+        (shown.length < list.length ? `<button class="showall">Show all ${list.length} obligations</button>` : "")
       : `<div style="padding:28px 18px;color:var(--dim)">No obligations in this view.</div>`;
   }
 
   rowsEl.addEventListener("click", (e) => {
+    if (e.target.closest(".showall")) {
+      expanded = true;
+      render();
+      return;
+    }
+    const link = e.target.closest(".doclink");
+    if (link && onOpenDocument) {
+      e.preventDefault();
+      onOpenDocument(link.dataset.doc, link.dataset.obl);
+      return;
+    }
     const btn = e.target.closest(".row__main");
     if (!btn) return;
     const row = btn.parentElement;
@@ -82,4 +99,21 @@ export function mountMatrix({ rows, statsEl, rowsEl, filterEls }) {
   );
 
   render();
+
+  // Show and expand one obligation's row (used by the document reader).
+  return {
+    open(id) {
+      current = "all";
+      expanded = true;
+      filterEls.forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.f === "all")));
+      render();
+      const row = rowsEl.querySelector(`.row[data-id="${CSS.escape(id)}"]`);
+      if (!row) return;
+      row.setAttribute("data-open", "");
+      row.querySelector(".row__main").setAttribute("aria-expanded", "true");
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+      row.classList.add("is-flash");
+      setTimeout(() => row.classList.remove("is-flash"), 1600);
+    },
+  };
 }

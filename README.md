@@ -3,11 +3,25 @@
 A Cloudflare Pages site and API that discovers contractual and regulatory obligations (KPIs, SLAs, reporting requirements, regulatory commitments) in MSAs, SOWs, vendor contracts and compliance documents, maps them to the enterprise metrics, dashboards and data sources that measure them, and flags gaps with auditable evidence.
 
 - **Landing page** (`/`): product story, animated pipeline diagram, interactive traceability matrix.
-- **Console** (`/app`): paste clause text, extract obligations, and browse the traceability matrix.
+- **Console** (`/app`): read the sample documents with traced clauses highlighted, extract obligations from a document or pasted text, and browse the traceability matrix.
 - **API** (Cloudflare Pages Functions):
   - `POST /api/extract`: `{ text, document_title?, document_type? }` → structured obligations. Uses the NVIDIA LLM API when `NVIDIA_API_KEY` is set; otherwise it uses a rule-based extractor.
   - `GET /api/obligations?coverage=tracked|partial|gap`: traceability rows from Supabase, or bundled sample data when Supabase is not configured.
   - `GET /api/health`: shows which integrations are configured.
+
+## Sample documents
+
+Three fictional documents stand in for SharePoint until ingestion is built. They live in `public/samples/` and can be read or downloaded from the console:
+
+| ID | Document | Type | What it exercises |
+|---|---|---|---|
+| `MSA-2026-014` | [Northwind Hosting MSA](public/samples/northwind-hosting-msa.md) | MSA | Availability SLA, incident response, service credits, SOC 2 and DR commitments |
+| `SOW-03` | [Contact Center Services SOW #3](public/samples/fabrikam-contact-center-sow-03.md) | SOW | Contact center KPIs (service level, FCR, CSAT), reporting deadlines, invoice accuracy |
+| `POL-PRV-005` | [Data Protection & Privacy Policy v5](public/samples/contoso-data-protection-policy-v5.md) | Compliance | Breach notification, data subject requests, access reviews, training, retention |
+
+All parties (Contoso, Northwind, Fabrikam) are fictional. The sample catalog in `public/assets/sample-data.js` traces 21 obligations from these documents (8 tracked, 7 partial, 6 gaps). Each document also contains obligations that are *not* in the catalog, so extraction shows them as "New · not in catalog".
+
+`npm run seed` checks that every catalogued clause is quoted word for word from its document, then regenerates `supabase/seed.sql`, so the database and the sample data stay identical. `npm run check:samples` runs the check only.
 
 ## Project layout
 
@@ -16,9 +30,11 @@ public/            static site (HTML, CSS, ES modules); deployed as-is, no build
   index.html       landing page
   app.html         console (served at /app)
   assets/          styles, scripts, sample data, rule-based extractor (shared with the API)
+  samples/         the three fictional sample documents (markdown)
 functions/api/     Cloudflare Pages Functions
 lib/               server helpers: NVIDIA client + prompt, Supabase REST client
-supabase/          SQL migration (schema, traceability view, RLS) and seed data
+supabase/          SQL migration (schema, traceability view, RLS) and generated seed data
+scripts/           build-seed.mjs: verifies sample clauses and generates supabase/seed.sql
 wrangler.toml      Cloudflare Pages config
 ```
 
@@ -64,7 +80,7 @@ npx wrangler pages secret put SUPABASE_SERVICE_ROLE_KEY
 
 ## Database (Supabase)
 
-Run `supabase/migrations/20261118000000_traceability.sql` in the Supabase SQL editor (or `supabase db push`), then optionally `supabase/seed.sql`.
+Run `supabase/migrations/20261118000000_traceability.sql` in the Supabase SQL editor (or `supabase db push`), then `supabase/seed.sql` to load the three sample documents and their obligations.
 
 Data model: `documents → clauses → obligations ⇄ mappings ⇄ metrics → data_sources`, with `evidence` attached to each mapping and an append-only `audit_log`. The `obligation_traceability` view returns one row per obligation with its best mapping. An obligation with no mapping is reported as a **gap**.
 

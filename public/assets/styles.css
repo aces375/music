@@ -308,6 +308,10 @@ blockquote.clause cite { display: block; margin-top: 10px; font-style: normal; f
 .evidence li span:last-child { font-family: var(--mono); font-size: 11px; color: var(--dim); white-space: nowrap; }
 .evidence li.none { color: var(--bad); border-style: dashed; }
 .gapnote { margin-top: 12px; padding: 10px 12px; border: 1px solid rgba(245, 197, 107, 0.25); background: rgba(245, 197, 107, 0.05); color: #f3dba6; font-size: 13px; }
+.doclink { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-2); }
+.doclink:hover { color: #fff; }
+.showall { width: 100%; padding: 16px; background: var(--surface); border: 0; border-top: 1px solid var(--line); cursor: pointer; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2); }
+.showall:hover { background: #101014; color: #fff; }
 .source-note { margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; color: var(--dim); text-transform: uppercase; }
 
 /* ---------- criteria ---------- */
@@ -393,3 +397,5 @@ blockquote.clause cite { display: block; margin-top: 10px; font-style: normal; f
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+.source-note a { color: var(--accent-2); border-bottom: 1px dashed rgba(196, 168, 255, 0.4); }
+.source-note a:hover { color: #fff; }

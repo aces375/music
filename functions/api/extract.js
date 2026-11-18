@@ -20,7 +20,7 @@ export async function onRequestPost({ request, env }) {
   if (text.length > MAX_CHARS) return error(413, `Text exceeds ${MAX_CHARS} characters`);
 
   if (!nvidiaConfigured(env)) {
-    return json({ engine: "heuristic", model: null, obligations: heuristicExtract(text) });
+    return json({ engine: "heuristic", model: null, obligations: heuristicExtract(text, { documentType: body.document_type }) });
   }
 
   const context = [body.document_title && `Document: ${body.document_title}`, body.document_type && `Type: ${body.document_type}`]
@@ -37,6 +37,6 @@ export async function onRequestPost({ request, env }) {
     return json({ engine: "nvidia", model, obligations });
   } catch (e) {
     // Keep the console usable if the model call fails; tell the client why.
-    return json({ engine: "heuristic", model: null, warning: String(e.message || e), obligations: heuristicExtract(text) });
+    return json({ engine: "heuristic", model: null, warning: String(e.message || e), obligations: heuristicExtract(text, { documentType: body.document_type }) });
   }
 }

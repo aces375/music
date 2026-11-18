@@ -42,8 +42,8 @@ const STORIES = [
   {
     repo: 1, role: 0, ctx: [0, 2], result: "tracked",
     lines: [
-      ["› scan sp://legal/msa", ""],
-      ["  northwind-hosting-msa.pdf", "dim"],
+      ["› scan sp://legal/vendor-msas", ""],
+      ["  northwind-hosting-msa.md", "dim"],
       ["› extract §4.2", ""],
       ["  SLA availability ≥ 99.9%/mo", "dim"],
       ["› map uptime_monthly_pct 0.96", ""],
@@ -51,32 +51,32 @@ const STORIES = [
     ],
   },
   {
-    repo: 2, role: 1, ctx: [1], result: "gap",
+    repo: 2, role: 3, ctx: [1], result: "gap",
     lines: [
-      ["› scan sp://procurement/sow", ""],
-      ["  payments-sow-07.docx", "dim"],
-      ["› extract §9.3", ""],
-      ["  SOC 2 bridge letter ≤ 30d/qtr", "dim"],
+      ["› scan sp://ops/outsourcing", ""],
+      ["  fabrikam-contact-center-sow", "dim"],
+      ["› extract §7.2", ""],
+      ["  service report ≤ BD5 monthly", "dim"],
       ["› map … 0 candidates", ""],
       ["  ✗ gap raised → owner notified", "bad"],
     ],
   },
   {
-    repo: 3, role: 2, ctx: [0, 3], result: "partial",
+    repo: 3, role: 1, ctx: [0, 3], result: "partial",
     lines: [
       ["› scan sp://risk/policies", ""],
-      ["  data-protection-policy-v5.pdf", "dim"],
-      ["› extract §6.4", ""],
-      ["  breach notice ≤ 72h", "dim"],
-      ["› map privacy_breach_notify_hours", ""],
-      ["  ~ partial · lineage unverified", "bad"],
+      ["  data-protection-policy-v5.md", "dim"],
+      ["› extract §8.1", ""],
+      ["  access reviews quarterly", "dim"],
+      ["› map uar_completion_pct 0.80", ""],
+      ["  ~ partial · 3 of 5 systems", "bad"],
     ],
   },
   {
-    repo: 0, role: 3, ctx: [0, 1, 2], result: "tracked",
+    repo: 0, role: 2, ctx: [0, 1, 2], result: "tracked",
     lines: [
-      ["› scan sp://ops/bpo", ""],
-      ["  contact-center-sow-03.pdf", "dim"],
+      ["› scan sp://ops/outsourcing", ""],
+      ["  fabrikam-contact-center-sow", "dim"],
       ["› extract Exhibit A KPI-6", ""],
       ["  FCR ≥ 80% monthly", "dim"],
       ["› map fcr_rate_monthly 0.93", ""],
@@ -158,6 +158,7 @@ mountMatrix({
   statsEl: document.getElementById("stats"),
   rowsEl: document.getElementById("matrix-rows"),
   filterEls: [...document.querySelectorAll(".filter")],
+  limit: 8,
 });
 
 /* ---------- reveal on scroll ---------- */

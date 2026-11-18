@@ -7,6 +7,7 @@ create extension if not exists "pgcrypto";
 -- Source documents discovered in SharePoint and other repositories.
 create table documents (
   id             uuid primary key default gen_random_uuid(),
+  document_code  text unique not null,       -- agreement / policy number, e.g. 'MSA-2026-014'
   title          text not null,
   document_type  text not null check (document_type in ('MSA','SOW','Vendor contract','Compliance','Regulatory','Other')),
   repository     text not null,              -- e.g. 'SharePoint / Legal / Vendor MSAs'
@@ -14,6 +15,7 @@ create table documents (
   counterparty   text,
   effective_date date,
   expiry_date    date,
+  body           text,                       -- extracted document text (markdown)
   content_hash   text,                       -- detects re-ingestion of changed files
   ingested_at    timestamptz not null default now()
 );
@@ -38,6 +40,8 @@ create table obligations (
   target_value       numeric,
   target_unit        text,
   frequency          text,
+  target_text        text,                   -- human-readable target, e.g. '≥ 99.9% / month'
+  gap_note           text,                   -- why an unmapped obligation is not measured
   owner              text,
   source_quote       text not null,          -- verbatim text the obligation was extracted from
   confidence         numeric check (confidence between 0 and 1),
@@ -116,20 +120,22 @@ select
   o.obligation_code                                   as obligation_id,
   o.title                                             as obligation,
   o.obligation_type,
+  d.document_code                                     as document_id,
   d.title                                             as document_title,
   d.document_type,
   d.repository,
   c.clause_ref,
   c.text                                              as clause_text,
-  concat_ws(' ', o.target_comparator, o.target_value::text, o.target_unit,
-            case when o.frequency is not null then '/ ' || o.frequency end) as target,
+  coalesce(o.target_text,
+           concat_ws(' ', o.target_comparator, o.target_value::text, o.target_unit,
+                     case when o.frequency is not null then '/ ' || o.frequency end)) as target,
   m.name                                              as metric_name,
   m.dashboard,
   m.platform,
   ds.lineage                                          as data_source,
   coalesce(mp.coverage, 'gap')                        as coverage,
   coalesce(mp.confidence, o.confidence)               as confidence,
-  case when mp.id is null then 'No metric mapped to this obligation.' else mp.gap_reason end as gap_reason,
+  case when mp.id is null then coalesce(o.gap_note, 'No metric mapped to this obligation.') else mp.gap_reason end as gap_reason,
   coalesce((
     select jsonb_agg(jsonb_build_object('kind', e.kind, 'label', e.label, 'captured_at', e.captured_at::date) order by e.captured_at)
     from evidence e where e.mapping_id = mp.id

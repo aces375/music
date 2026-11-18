@@ -9,7 +9,7 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="stylesheet" href="/assets/console.css" />
 </head>
@@ -40,9 +40,33 @@
       <h2>Extract &amp; trace obligations</h2>
     </section>
 
-    <section class="panel" aria-labelledby="extract-h">
+    <section class="panel" aria-labelledby="docs-h" id="documents">
       <div class="panel__head">
-        <h3 id="extract-h">1 · Extract obligations</h3>
+        <h3 id="docs-h">1 · Sample documents</h3>
+        <span class="engine">Fictional · for demonstration</span>
+      </div>
+      <p class="hint">Three mock documents stand in for SharePoint until ingestion is connected. Read one to see which clauses are traced, or run extraction on the whole document.</p>
+      <div class="docs" id="docs"></div>
+      <div class="reader" id="reader" hidden>
+        <div class="reader__bar">
+          <div>
+            <span class="reader__id" id="reader-id"></span>
+            <span class="reader__title" id="reader-title"></span>
+          </div>
+          <div class="reader__actions">
+            <button class="btn btn--sm btn--ghost-fill" type="button" id="reader-extract">Extract this document</button>
+            <a class="btn btn--sm" id="reader-download" download>Download .md</a>
+            <button class="btn btn--sm" type="button" id="reader-close" aria-label="Close document">Close</button>
+          </div>
+        </div>
+        <div class="reader__legend"><span><i class="dot dot--tracked"></i>Tracked</span><span><i class="dot dot--partial"></i>Partial</span><span><i class="dot dot--gap"></i>Gap</span><span>Highlighted clauses are in the traceability catalog</span></div>
+        <article class="paper" id="paper"></article>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="extract-h" id="extract">
+      <div class="panel__head">
+        <h3 id="extract-h">2 · Extract obligations</h3>
         <span class="engine" id="engine" hidden></span>
       </div>
       <form id="extract-form" class="extract">
@@ -54,26 +78,27 @@
             </select>
           </label>
         </div>
-        <label class="area">Clause text
+        <label class="area">Document or clause text
           <textarea name="text" rows="9" spellcheck="false">4.2 Availability. Supplier shall ensure the Hosted Services are Available at least 99.9% of each calendar month, excluding Scheduled Maintenance notified no less than five (5) Business Days in advance.
 
-4.3 Incident Response. For Severity 1 Incidents, Supplier shall acknowledge and commence remediation within fifteen (15) minutes of notification.
+7.2 Quarterly Business Review. The parties shall hold a Quarterly Business Review within twenty (20) Business Days after the end of each calendar quarter.
 
-9.3 Assurance. Vendor shall deliver a SOC 2 Type II report annually and a bridge letter within thirty (30) days after the end of each calendar quarter.
+9.3 Assurance Reports. Supplier shall deliver a SOC 2 Type II report annually and a bridge letter within thirty (30) days after the end of each calendar quarter.
 
-12.4 Notices. All notices under this Agreement shall be in writing.</textarea>
+11.1 Governing Law. This Agreement is governed by the laws of the State of New York.</textarea>
         </label>
         <div class="extract__actions">
           <button class="btn btn--primary" type="submit" id="run">Extract</button>
-          <span class="hint" id="hint">Text is sent to <code>/api/extract</code>. Without an NVIDIA key a rule-based extractor is used.</span>
+          <span class="hint" id="hint">Paste clause text or use <b>Extract</b> on a sample document. Text is sent to <code>/api/extract</code>; without an NVIDIA key a rule-based extractor is used.</span>
         </div>
       </form>
+      <div id="results-summary" class="results-summary" hidden></div>
       <div id="results" class="results"></div>
     </section>
 
-    <section class="panel" aria-labelledby="matrix-h">
+    <section class="panel" aria-labelledby="matrix-h" id="matrix">
       <div class="panel__head">
-        <h3 id="matrix-h">2 · Traceability matrix</h3>
+        <h3 id="matrix-h">3 · Traceability matrix</h3>
         <span class="engine" id="source"></span>
       </div>
       <dl class="stats" id="stats"></dl>

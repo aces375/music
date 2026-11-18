@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "wrangler pages dev",
     "deploy": "wrangler pages deploy",
-    "db:push": "supabase db push"
+    "db:push": "supabase db push",
+    "seed": "node scripts/build-seed.mjs",
+    "check:samples": "node scripts/build-seed.mjs --check"
   },
   "devDependencies": {
     "wrangler": "^4.164.0"
