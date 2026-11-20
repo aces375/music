@@ -171,3 +171,12 @@ create policy "read for authenticated" on metrics      for select to authenticat
 create policy "read for authenticated" on mappings     for select to authenticated using (true);
 create policy "read for authenticated" on evidence     for select to authenticated using (true);
 create policy "read for authenticated" on audit_log    for select to authenticated using (true);
+
+-- Data API access is opt-in on new Supabase projects: grant it explicitly.
+-- service_role: the Worker (bypasses RLS). authenticated: read-only, matching the policies above.
+-- anon gets nothing (revoked in case the project still auto-grants new tables).
+revoke all on all tables in schema public from anon;
+grant usage on schema public to service_role, authenticated;
+grant select, insert, update, delete on all tables in schema public to service_role;
+grant usage, select on all sequences in schema public to service_role;
+grant select on all tables in schema public to authenticated;

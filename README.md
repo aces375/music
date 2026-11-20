@@ -62,7 +62,7 @@ Everything works without keys. The console shows which engine and data source an
 | `NVIDIA_MODEL` | `wrangler.toml` var | Defaults to `meta/llama-3.3-70b-instruct` |
 | `NVIDIA_BASE_URL` | `wrangler.toml` var | Defaults to `https://integrate.api.nvidia.com/v1` (or a self-hosted NIM URL) |
 | `SUPABASE_URL` | secret | `https://<project>.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | secret | Server-side only; never expose to the browser |
+| `SUPABASE_SECRET_KEY` | secret | `sb_secret_...` key from Supabase → Settings → API Keys. Server-side only. (The legacy `SUPABASE_SERVICE_ROLE_KEY` is still accepted.) |
 
 Set the production secrets:
 
@@ -75,7 +75,7 @@ npx wrangler secret put SUPABASE_URL
 ```
 
 ```bash
-npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+npx wrangler secret put SUPABASE_SECRET_KEY
 ```
 
 ## Database (Supabase)
