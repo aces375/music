@@ -7,6 +7,8 @@ const esc = (s) =>
 const LABEL = { tracked: "Tracked", partial: "Partial", gap: "Gap" };
 const TYPE = { kpi: "KPI", sla: "SLA", reporting: "Reporting", performance_target: "Performance target", regulatory: "Regulatory" };
 
+const fmtDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+
 const CHEVRON = `<svg class="row__chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>`;
 
 function rowHtml(r, i) {
@@ -39,6 +41,7 @@ function rowHtml(r, i) {
           <div class="trace__step"><dt>Metric</dt>${miss(r.metric_name)}</div>
           <div class="trace__step"><dt>Dashboard</dt>${miss(r.dashboard && `${r.dashboard} (${r.platform})`)}</div>
           <div class="trace__step"><dt>Data source</dt>${miss(r.data_source)}</div>
+          ${r.next_due ? `<div class="trace__step"><dt>Next due</dt><dd>${esc(fmtDate(r.next_due.date))} <span class="due-rule">· ${esc(r.next_due.rule)}${r.next_due.holidays_skipped?.length ? `, skips ${esc(r.next_due.holidays_skipped.join(", "))}` : ""}</span></dd></div>` : ""}
           <div class="trace__step"><dt>Confidence</dt><dd>${r.confidence != null ? Math.round(r.confidence * 100) + "%" : "—"}</dd></div>
         </dl>
         <ul class="evidence">${evidence}</ul>

@@ -399,3 +399,4 @@ blockquote.clause cite { display: block; margin-top: 10px; font-style: normal; f
 }
 .source-note a { color: var(--accent-2); border-bottom: 1px dashed rgba(196, 168, 255, 0.4); }
 .source-note a:hover { color: #fff; }
+.due-rule { color: var(--dim); font-size: 12.5px; }

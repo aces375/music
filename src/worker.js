@@ -5,12 +5,14 @@
 import * as extract from "./api/extract.js";
 import * as obligations from "./api/obligations.js";
 import * as health from "./api/health.js";
+import * as regulation from "./api/regulation.js";
 import { error } from "../lib/http.js";
 
 const ROUTES = {
   "/api/extract": extract,
   "/api/obligations": obligations,
   "/api/health": health,
+  "/api/regulation": regulation,
 };
 
 export default {

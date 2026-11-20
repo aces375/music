@@ -248,6 +248,41 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
+/* ---------- eCFR regulation import ---------- */
+const regSelect = $("reg-preset");
+const regLoad = $("reg-load");
+fetch("/api/regulation")
+  .then((r) => (r.ok ? r.json() : Promise.reject()))
+  .then(({ presets }) => {
+    regSelect.innerHTML = presets.map((p) => `<option value="${esc(p.id)}">${esc(p.label)}</option>`).join("");
+  })
+  .catch(() => {
+    regSelect.innerHTML = `<option value="">Regulation import needs the API</option>`;
+    regLoad.disabled = true;
+  });
+
+regLoad.addEventListener("click", async () => {
+  if (!regSelect.value) return;
+  regLoad.disabled = true;
+  regLoad.textContent = "Loading…";
+  hint.classList.remove("is-warn");
+  try {
+    const res = await fetch(`/api/regulation?preset=${encodeURIComponent(regSelect.value)}`);
+    const body = await res.json();
+    if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
+    form.elements.document_title.value = `${body.citation} ${body.heading.replace(/^§\s*[\d.]+\s*/, "")}`.trim();
+    form.elements.document_type.value = "Regulatory";
+    form.elements.text.value = body.text;
+    hint.innerHTML = `Loaded <b>${esc(body.citation)}</b> from eCFR (current as of ${esc(body.as_of)}). Click <b>Extract</b>.`;
+  } catch (err) {
+    hint.textContent = `Could not load regulation: ${err.message}`;
+    hint.classList.add("is-warn");
+  } finally {
+    regLoad.disabled = false;
+    regLoad.textContent = "Load text";
+  }
+});
+
 /* ---------- matrix + initial state ---------- */
 async function init() {
   let source = "sample";

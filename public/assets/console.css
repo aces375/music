@@ -127,3 +127,9 @@
   .hit { scroll-margin-top: 96px; margin-inline: -10px; padding-inline: 10px; }
   .panel:has(.reader:not([hidden])) { padding-inline: 10px; }
 }
+
+/* ---------- eCFR import ---------- */
+.import { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; padding: 12px; border: 1px dashed var(--line-2); background: #050507; }
+.import .btn { height: 44px; }
+.import__src { margin-left: 8px; color: var(--accent-2); }
+@media (max-width: 600px) { .import { grid-template-columns: 1fr; } }
