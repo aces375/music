@@ -1,0 +1,17 @@
+<section id="rows" class="alt" data-transition="fade">
+<div class="rail l"></div>
+<div class="rail r"></div>
+<p class="eyebrow">Sample rows · obligation_traceability</p>
+<h2 class="title rise">One obligation tracked. One nobody measures.</h2>
+<div style="flex:1"></div>
+<table class="rows rise" style="--i:1; font-size:32px">
+<tr class="head"><th style="width:12%">ID</th><th style="width:13%">Clause</th><th style="width:32%">Target</th><th style="width:27%">Metric</th><th style="width:16%">Coverage</th></tr>
+<tr><td>OBL-0101</td><td>MSA §4.2</td><td>≥ 99.9% / month</td><td>uptime_monthly_pct</td><td style="color:#6EE7A8">Tracked</td></tr>
+<tr><td>OBL-0106</td><td>MSA §9.3</td><td>≤ 30 days after quarter end</td><td style="color:#FF8A8A">None</td><td style="color:#FF8A8A">Gap</td></tr>
+</table>
+<div style="flex:1"></div>
+<p class="label rise" style="--i:2">21 obligations · 3 documents · 8 tracked · 7 partial · 6 gaps</p>
+<aside>CAPSTONE ASK: “What does your database look like and why? (one or two sample rows/columns)”
+
+Two real rows from the Supabase view. OBL-0101 is the hosting contract’s 99.9% monthly availability SLA: it maps to uptime_monthly_pct on a Power BI dashboard, fed from Datadog into Snowflake, with two pieces of evidence. OBL-0106 requires a SOC 2 bridge letter within 30 days of each quarter end: no metric, report or task tracks it, so it shows up as a gap. Across the sample workspace there are 21 obligations in three documents.</aside>
+</section>

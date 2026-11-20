@@ -1,0 +1,48 @@
+<section id="uml" class="alt" data-transition="fade">
+<div class="rail l"></div>
+<div class="rail r"></div>
+<p class="eyebrow">UML · Activity diagram</p>
+<h2 class="title rise">From contract to traced obligation.</h2>
+<div style="flex:1"></div>
+<div class="uml rise" style="--i:1">
+<div class="u-in" style="grid-column:3">eCFR API</div>
+<div class="u-in" style="grid-column:5">NVIDIA model</div>
+<div class="u-in" style="grid-column:7">Metric catalog</div>
+<div class="u-in" style="grid-column:9">Nager.Date</div>
+<div class="u-flow" style="grid-column:3; grid-row:2"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-flow" style="grid-column:5; grid-row:2"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-flow" style="grid-column:7; grid-row:2"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-flow" style="grid-column:9; grid-row:2"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<x-shape kind="ellipse" class="u-start" style="grid-column:1; grid-row:3"></x-shape>
+<x-shape kind="arrow-right" class="u-arrow" style="grid-column:2; grid-row:3"></x-shape>
+<div class="u-step" style="grid-column:3; grid-row:3"><h3>Intake</h3><p>Contracts and rules arrive</p></div>
+<x-shape kind="arrow-right" class="u-arrow" style="grid-column:4; grid-row:3"></x-shape>
+<div class="u-step" style="grid-column:5; grid-row:3"><h3>Extract</h3><p>Find measurable obligations</p></div>
+<x-shape kind="arrow-right" class="u-arrow" style="grid-column:6; grid-row:3"></x-shape>
+<div class="u-step" style="grid-column:7; grid-row:3"><h3>Map</h3><p>Match each to a metric</p></div>
+<x-shape kind="arrow-right" class="u-arrow" style="grid-column:8; grid-row:3"></x-shape>
+<div class="u-step" style="grid-column:9; grid-row:3"><h3>Schedule</h3><p>Turn deadlines into dates</p></div>
+<x-shape kind="arrow-right" class="u-arrow" style="grid-column:10; grid-row:3"></x-shape>
+<div class="u-step" style="grid-column:11; grid-row:3"><h3>Report</h3><p>Matrix with gaps flagged</p></div>
+<x-shape kind="arrow-right" class="u-arrow" style="grid-column:12; grid-row:3"></x-shape>
+<x-shape kind="ellipse" class="u-end" style="grid-column:13; grid-row:3"></x-shape>
+<div class="u-flow" style="grid-column:3; grid-row:4"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-flow" style="grid-column:5; grid-row:4"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-flow" style="grid-column:7; grid-row:4"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-flow" style="grid-column:9; grid-row:4"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-flow" style="grid-column:11; grid-row:4"><div class="u-dash"></div><x-shape kind="arrow-down" class="u-head"></x-shape></div>
+<div class="u-out" style="grid-column:3; grid-row:5">Document text</div>
+<div class="u-out" style="grid-column:5; grid-row:5">Obligations</div>
+<div class="u-out" style="grid-column:7; grid-row:5">Mappings + evidence</div>
+<div class="u-out" style="grid-column:9; grid-row:5">Next due dates</div>
+<div class="u-out" style="grid-column:11; grid-row:5">Gap report</div>
+</div>
+<div style="flex:1"></div>
+<div class="u-legend">
+<div class="u-key step"></div><p class="label">Process step</p>
+<div class="u-key data"></div><p class="label">Data in / out</p>
+</div>
+<aside>CAPSTONE ASK: UML or other simple, high-level diagram.
+
+The flow, left to right. Intake: a contract, SOW or policy arrives, or a federal regulation is pulled from the eCFR API. Extract: the NVIDIA model (Gemma 4 31B) reads the text and returns each measurable obligation with its exact quote. Map: each obligation is matched against the metric catalog in Supabase, producing a mapping and its evidence. Schedule: deadlines like “5th business day” become real dates using holidays from Nager.Date. Report: the traceability matrix shows every obligation as tracked, partial or gap. Solid boxes are process steps; dashed boxes are the data going in and out.</aside>
+</section>

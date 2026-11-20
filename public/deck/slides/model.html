@@ -1,0 +1,18 @@
+<section id="model" data-transition="fade">
+<div class="rail l"></div>
+<div class="rail r"></div>
+<p class="eyebrow">NVIDIA model</p>
+<div style="display:flex; flex-direction:column; gap:16px">
+<h1 class="display rise">Gemma 4 31B</h1>
+<p class="label rise" style="--i:1">google/gemma-4-31b-it · via NVIDIA’s hosted API</p>
+</div>
+<div style="flex:1"></div>
+<div class="stats">
+<div class="stat rise" style="--i:2"><p class="num">~30 s</p><p class="lbl">per full contract</p></div>
+<div class="stat rise" style="--i:3"><p class="num">7 / 7</p><p class="lbl">known obligations found</p></div>
+<div class="stat rise" style="--i:4"><p class="num">100%</p><p class="lbl">quotes word-for-word</p></div>
+</div>
+<aside>CAPSTONE ASK: “Which (NVIDIA) models you used” (this slide) “and why those models” (next slide).
+
+The model reads a whole contract and returns each measurable obligation as structured JSON: type, target, frequency, a suggested metric, a confidence score and the exact quote it came from. Tested on the live site with the contact center SOW: about 30 seconds, all 7 obligations already in the catalog found plus 3 new ones, and every quote matched the document word for word, so nothing was invented. If the model is unavailable or slow, the site falls back to a rule-based extractor after 60 seconds.</aside>
+</section>

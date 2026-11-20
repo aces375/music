@@ -1,0 +1,67 @@
+/* Presenter chrome for /deck. Slide content styles live in deck.css (shared with the Slides artifact). */
+* { margin: 0; box-sizing: border-box; }
+html, body { height: 100%; background: #000; overflow: hidden; }
+body { font: 16px/1.4 "Geist", Arial, sans-serif; color: #F2F2F4; -webkit-font-smoothing: antialiased; }
+
+.viewport { position: fixed; inset: 0 0 56px 0; overflow: hidden; background: #000; }
+body.is-full .viewport { inset: 0; }
+.stage { font: 32px/1.2 sans-serif; position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+
+/* each slide is a fixed 1920×1080 poster; only the current one shows */
+.stage > section { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; isolation: isolate; display: none; }
+.stage > section.is-current { display: flex; animation: deck-fade 360ms ease both; }
+.stage > section > aside { display: none; }
+@keyframes deck-fade { from { opacity: 0; } }
+
+/* defaults the Slides viewer applies */
+.stage h1 { font-size: 96px; font-weight: 600; }
+.stage h2 { font-size: 64px; font-weight: 600; }
+.stage h3 { font-size: 44px; font-weight: 600; }
+.stage img { display: block; }
+.stage table { border-collapse: collapse; }
+.stage th, .stage td { padding: 0.35em 0.6em; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.stage th { font-weight: 600; }
+
+/* x-shape: the Slides format's simple shapes */
+x-shape { display: block; flex: none; }
+x-shape[kind="ellipse"] { border-radius: 50%; }
+x-shape[kind="arrow-right"] { clip-path: polygon(0 32%, 60% 32%, 60% 0, 100% 50%, 60% 100%, 60% 68%, 0 68%); }
+x-shape[kind="arrow-left"] { clip-path: polygon(100% 32%, 40% 32%, 40% 0, 0 50%, 40% 100%, 40% 68%, 100% 68%); }
+x-shape[kind="arrow-down"] { clip-path: polygon(32% 0, 68% 0, 68% 60%, 100% 60%, 50% 100%, 0 60%, 32% 60%); }
+x-shape[kind="arrow-up"] { clip-path: polygon(32% 100%, 68% 100%, 68% 40%, 100% 40%, 50% 0, 0 40%, 32% 40%); }
+x-shape[kind="diamond"] { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+/* the end node is a ring + dot: draw the ring with an outline so clip-path isn't needed */
+x-shape.u-end { box-sizing: border-box; }
+
+/* bottom bar */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 16px; background: #0A0A0C; border-top: 1px solid #222226; font-family: "JetBrains Mono", "Courier New", monospace; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; transition: transform 0.25s ease; }
+body.is-full .bar { transform: translateY(100%); }
+body.is-full.show-bar .bar { transform: none; }
+.bar a { color: #A1A1AA; text-decoration: none; }
+.bar a:hover { color: #fff; }
+.bar__nav { display: flex; align-items: center; gap: 12px; }
+.bar__count { min-width: 64px; text-align: center; color: #F2F2F4; }
+.bar button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: #F2F2F4; background: transparent; border: 1px solid #303036; height: 34px; min-width: 34px; padding: 0 12px; cursor: pointer; }
+.bar__nav button { font-size: 20px; padding: 0; text-transform: none; }
+.bar button:hover { border-color: #A67CFF; }
+.bar button[aria-pressed="true"] { border-color: #A67CFF; color: #C4A8FF; background: rgba(166, 124, 255, 0.1); }
+.bar button:focus-visible { outline: 2px solid #A67CFF; outline-offset: 2px; }
+.bar__tools { display: flex; gap: 8px; }
+
+/* speaker notes panel */
+.notes { position: fixed; right: 16px; bottom: 72px; width: min(520px, calc(100vw - 32px)); max-height: 45vh; overflow: auto; background: rgba(10, 10, 12, 0.96); border: 1px solid #303036; padding: 16px 18px; z-index: 5; }
+.notes__label { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #A67CFF; margin-bottom: 10px; }
+.notes__body { font-size: 15px; line-height: 1.55; color: #D4D4D8; white-space: pre-wrap; }
+.notes__body .ask { display: block; color: #C4A8FF; font-weight: 600; margin-bottom: 8px; }
+
+.hint { position: fixed; left: 50%; bottom: 72px; transform: translateX(-50%); font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.06em; color: #A1A1AA; background: rgba(10, 10, 12, 0.9); border: 1px solid #222226; padding: 8px 12px; transition: opacity 0.6s ease; white-space: nowrap; }
+.hint.is-gone { opacity: 0; pointer-events: none; }
+
+@media (max-width: 600px) {
+  .bar__home { display: none; }
+  .hint { display: none; }
+  .bar button { padding: 0 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage *, .stage > section { animation: none !important; }
+}

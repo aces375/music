@@ -1,0 +1,17 @@
+<section id="why-model" class="alt" data-transition="fade">
+<div class="rail l"></div>
+<div class="rail r"></div>
+<p class="eyebrow">Why this model</p>
+<h2 class="title rise">Chosen by testing: the one that finished.</h2>
+<div style="flex:1"></div>
+<table class="rows rise" style="--i:1; font-size:32px">
+<tr class="head"><th style="width:44%">Model tried</th><th>Result</th></tr>
+<tr><td>Llama 3.3 70B</td><td style="color:#A1A1AA">Retired by NVIDIA (Aug 2026)</td></tr>
+<tr><td>Mistral Large 4 (1T)</td><td style="color:#FF8A8A">Timed out after 100 s</td></tr>
+<tr><td>Gemma 4 31B</td><td style="color:#6EE7A8">31 s, accurate JSON: chosen</td></tr>
+</table>
+<div style="flex:1"></div>
+<aside>CAPSTONE ASK: “Which (NVIDIA) models you used and why those models” — the why.
+
+The first model, Llama 3.3 70B, had been retired from NVIDIA’s API. The largest current option, Mistral Large 4 with a trillion parameters, was too slow: NVIDIA’s gateway timed out after 100 seconds on a full contract. Gemma 4 31B finished a full SOW in about 31 seconds with clean JSON and verbatim quotes, so it was the right size for an interactive tool. The model is one setting (NVIDIA_MODEL), so it can be swapped later.</aside>
+</section>

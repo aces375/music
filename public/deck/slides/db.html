@@ -1,0 +1,27 @@
+<section id="db" data-transition="fade">
+<div class="rail l"></div>
+<div class="rail r"></div>
+<p class="eyebrow">Database · Supabase Postgres</p>
+<h2 class="title rise">One chain from clause to data source.</h2>
+<div style="flex:1"></div>
+<div class="chain rise" style="--i:1">
+<div class="node">Document</div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="node">Clause</div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="node">Obligation</div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="node hot">Mapping</div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="node">Metric</div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="node">Data source</div>
+<x-shape kind="arrow-down" class="down dn"></x-shape>
+<div class="node ev">Evidence</div>
+</div>
+<div style="flex:1"></div>
+<div class="callout rise" style="--i:2"><p class="lede" style="color:#F2F2F4">Why: every link is a row an auditor can query. <span class="hl">A gap is an obligation with no mapping.</span></p></div>
+<aside>CAPSTONE ASK: “What does your database look like and why?”
+
+Eight tables. A document has clauses; a clause creates obligations; a mapping links an obligation to the metric that measures it, with a coverage of tracked or partial and a confidence score; a metric points at its data source; evidence records hang off each mapping; and an append-only audit log records every change. A view called obligation_traceability flattens the chain into one row per obligation. Any obligation with no mapping comes out as a gap automatically. Row-level security is on, signed-in users are read-only, and anonymous visitors get nothing.</aside>
+</section>

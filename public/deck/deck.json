@@ -1,0 +1,22 @@
+{
+  "v": 5,
+  "createdOnFiles": { "v": 1, "at": "2026-11-20T01:35:00Z" },
+  "lists": "css",
+  "format": { "v": 1, "shared": ["project/deck.css"] },
+  "title": "Clausemap Capstone",
+  "cover": "cover",
+  "order": ["cover", "why", "goal", "product", "uml", "model", "why-model", "db", "rows", "ecfr", "nager", "demo"],
+  "sections": {
+    "s1": { "description": "Why the problem mattered and what the goal was.", "start": "cover" },
+    "s2": { "description": "What Clausemap is and how it flows (UML).", "start": "product" },
+    "s3": { "description": "The NVIDIA model used and why it was chosen.", "start": "model" },
+    "s4": { "description": "The Supabase database design and sample rows.", "start": "db" },
+    "s5": { "description": "Two additional free public APIs and why they were used.", "start": "ecfr" },
+    "s6": { "description": "Hand-off to the live site demo.", "start": "demo" }
+  },
+  "faces": {
+    "geist": { "family": "Geist", "href": "https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" },
+    "jetbrains-mono": { "family": "JetBrains Mono", "href": "https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" }
+  },
+  "designSystems": []
+}
