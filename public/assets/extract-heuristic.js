@@ -87,7 +87,7 @@ export function heuristicExtract(text, { documentType } = {}) {
       frequency: freq ? freq[1] : null,
       suggested_metric: null,
       source_quote: s,
-      confidence: Math.min(0.95, 0.45 + (numeric ? 0.2 : 0) + (t.value != null ? 0.15 : 0) + (freq ? 0.1 : 0) + (cadence ? 0.05 : 0)),
+      confidence: Math.round(Math.min(0.95, 0.45 + (numeric ? 0.2 : 0) + (t.value != null ? 0.15 : 0) + (freq ? 0.1 : 0) + (cadence ? 0.05 : 0)) * 100) / 100,
     });
   });
   return out;
