@@ -8,6 +8,11 @@ A Cloudflare Worker (static site + API) that discovers contractual and regulator
   - `POST /api/extract`: `{ text, document_title?, document_type? }` → structured obligations. Uses the NVIDIA LLM API when `NVIDIA_API_KEY` is set; otherwise it uses a rule-based extractor.
   - `GET /api/obligations?coverage=tracked|partial|gap`: traceability rows from Supabase, or bundled sample data when Supabase is not configured.
   - `GET /api/health`: shows which integrations are configured.
+  - `GET /api/regulation?preset=ftc-safeguards` (or `?title=16&section=314.4`): the current text of a federal regulation section from the **eCFR API** (free, no key), ready for extraction.
+
+Free public APIs used besides the class stack:
+- **eCFR** (`www.ecfr.gov`): imports real federal regulations so regulatory obligations can be extracted, not just contract ones.
+- **Nager.Date** (`date.nager.at`): U.S. federal and New York public holidays, used to turn deadlines such as "5th business day" into the next due date shown on each obligation.
 
 ## Sample documents
 
