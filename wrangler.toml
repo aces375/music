@@ -13,3 +13,5 @@ directory = "./public"
 NVIDIA_MODEL = "google/gemma-4-31b-it"
 NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 SUPABASE_URL = "https://dnjuchflztihutxyulde.supabase.co"
+# TEMPORARY: SHA-256 of the token that unlocks /api/review for the edge-case review agents.
+REVIEW_TOKEN_SHA256 = "969910050da4a25cacb46b66f6423a0ae14d77ec228af2d71ff4113920921e7a"

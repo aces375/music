@@ -6,6 +6,7 @@ import * as extract from "./api/extract.js";
 import * as obligations from "./api/obligations.js";
 import * as health from "./api/health.js";
 import * as regulation from "./api/regulation.js";
+import * as review from "./api/review.js"; // TEMPORARY: edge-case review agents
 import { error } from "../lib/http.js";
 
 const ROUTES = {
@@ -13,6 +14,7 @@ const ROUTES = {
   "/api/obligations": obligations,
   "/api/health": health,
   "/api/regulation": regulation,
+  "/api/review": review, // TEMPORARY
 };
 
 export default {
