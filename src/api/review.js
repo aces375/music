@@ -43,7 +43,7 @@ export async function onRequestPost({ request, env }) {
 
   try {
     const model = MODELS.has(body.model) ? body.model : undefined;
-    const out = await chat(model ? { ...env, NVIDIA_MODEL: model } : env, messages, { max_tokens, temperature: 0.2, timeoutMs: 90000 });
+    const out = await chat(model ? { ...env, NVIDIA_MODEL: model } : env, messages, { max_tokens, temperature: 0.2, timeoutMs: 300000 });
     return json({ model: out.model, content: out.content });
   } catch (e) {
     return error(502, String(e.message || e));
