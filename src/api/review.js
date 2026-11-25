@@ -7,6 +7,8 @@ import { chat, nvidiaConfigured } from "../../lib/nvidia.js";
 
 const MAX_CHARS = 60000;
 const MAX_TOKENS = 3000;
+// Current chat models that may be tried during the review (the configured model was retired).
+const MODELS = new Set(["nvidia/nemotron-3.5-lightning-30b-a3b", "nvidia/nemotron-3-ultra-550b-a55b", "z-ai/glm-5.3-flash", "minimaxai/minimax-m3.1-flash", "moonshotai/kimi-k3.1-pro", "mistralai/mistral-large-4-1t-a52b"]);
 
 async function sha256Hex(text) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
@@ -40,8 +42,9 @@ export async function onRequestPost({ request, env }) {
   const max_tokens = Math.min(Number(body.max_tokens) || 1500, MAX_TOKENS);
 
   try {
-    const { model, content } = await chat(env, messages, { max_tokens, temperature: 0.2, timeoutMs: 90000 });
-    return json({ model, content });
+    const model = MODELS.has(body.model) ? body.model : undefined;
+    const out = await chat(model ? { ...env, NVIDIA_MODEL: model } : env, messages, { max_tokens, temperature: 0.2, timeoutMs: 90000 });
+    return json({ model: out.model, content: out.content });
   } catch (e) {
     return error(502, String(e.message || e));
   }
